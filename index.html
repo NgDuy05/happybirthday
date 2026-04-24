@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chúc Mừng Sinh Nhật Mẹ 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #FBBABA;
+    --pink-light: #FFE7E7;
+    --pink-deep: #FFD2D3;
+    --rose: #b06070;
+    --cream: #FFE0E0;
+    --brown: #5d3a1a;
+    --brown-light: #8b5e3c;
+  }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFE7E7 0%, #FFD2D3 40%, #FBBABA 100%);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== CONFETTI ===== */
+  .confetti-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: floatDot linear infinite;
+  }
+
+  @keyframes floatDot {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ===== SCENE ===== */
+  #scene {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh; width: 100%; padding: 2rem 1rem;
+  }
+
+  /* ===== GIFT BOX ===== */
+  #gift-wrapper {
+    cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    animation: floatGift 3s ease-in-out infinite;
+    transition: transform 0.2s;
+    user-select: none;
+  }
+  #gift-wrapper:hover { transform: scale(1.06); }
+  #gift-wrapper:active { transform: scale(0.96); }
+
+  @keyframes floatGift {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-14px); }
+  }
+
+  .gift-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--rose);
+    margin-bottom: 0.8rem;
+    text-shadow: 0 2px 8px rgba(255,255,255,0.6);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.6; }
+  }
+
+  /* SVG gift box */
+  #gift-svg { filter: drop-shadow(0 8px 24px rgba(194,24,91,0.25)); }
+
+  /* ===== CAKE SCENE ===== */
+  #cake-scene {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 0.8s ease forwards;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Card */
+  .birthday-card {
+    background: linear-gradient(160deg, #FFE7E7 0%, #FFD2D3 100%);
+    border-radius: 2rem;
+    padding: 2rem 1.5rem 2.5rem;
+    box-shadow: 0 8px 40px rgba(194,24,91,0.18), 0 2px 8px rgba(0,0,0,0.06);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .birthday-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 0%, rgba(251,186,186,0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 100%, rgba(255,210,211,0.3) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Candle + flame */
+  .candle-wrap {
+    display: flex; justify-content: center; margin-bottom: 0.5rem;
+  }
+  .flame {
+    animation: flicker 0.5s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+  }
+  @keyframes flicker {
+    0%   { transform: scaleX(1) scaleY(1) rotate(-2deg); opacity: 1; }
+    100% { transform: scaleX(0.85) scaleY(1.1) rotate(2deg); opacity: 0.85; }
+  }
+
+  /* Cake pieces falling */
+  .cake-pieces-area {
+    position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  }
+  .piece {
+    position: absolute;
+    top: -80px;
+    font-size: 2.2rem;
+    animation: fallPiece linear forwards;
+    opacity: 0;
+  }
+  @keyframes fallPiece {
+    0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(110vh) rotate(540deg); }
+  }
+
+  /* Text */
+  .wish-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 8vw, 3rem);
+    color: var(--rose);
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(255,255,255,0.8);
+    line-height: 1.2;
+    margin: 1rem 0 0.5rem;
+  }
+  .wish-sub {
+    font-size: clamp(0.9rem, 3vw, 1.05rem);
+    color: #9e6070;
+    text-align: center;
+    line-height: 1.7;
+    padding: 0 0.5rem;
+  }
+
+  /* Heart sparkles */
+  .sparkle {
+    position: absolute;
+    font-size: 1.2rem;
+    animation: sparkleAnim 2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes sparkleAnim {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+    50%       { transform: scale(1.4) rotate(20deg); opacity: 1; }
+  }
+
+  /* replay btn */
+  .replay-btn {
+    margin-top: 1.5rem;
+    background: #c97a7a;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.7rem 2rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(194,24,91,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .replay-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(194,24,91,0.4); }
+  .replay-btn:active { transform: scale(0.96); }
+</style>
+</head>
+<body>
+
+<!-- Confetti bg -->
+<div class="confetti-container" id="confetti"></div>
+
+<!-- Falling cake pieces area -->
+<div class="cake-pieces-area" id="cakePieces"></div>
+
+<div id="scene">
+
+  <!-- GIFT BOX -->
+  <div id="gift-wrapper" onclick="openGift()">
+    <div class="gift-label">🎀 Nhấn để mở quà mẹ nhé! 🎀</div>
+    <svg id="gift-svg" width="200" height="220" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- Box body -->
+      <rect x="20" y="100" width="160" height="110" rx="8" fill="#FBBABA"/>
+      <rect x="20" y="100" width="160" height="110" rx="8" fill="url(#boxGrad)" opacity="0.6"/>
+      <!-- Box lid -->
+      <rect x="10" y="78" width="180" height="30" rx="6" fill="#FFD2D3"/>
+      <rect x="10" y="78" width="180" height="30" rx="6" fill="url(#lidGrad)" opacity="0.5"/>
+      <!-- Ribbon vertical -->
+      <rect x="91" y="78" width="18" height="132" fill="#c97a7a" rx="3"/>
+      <!-- Ribbon horizontal -->
+      <rect x="10" y="86" width="180" height="14" fill="#c97a7a" rx="3"/>
+      <!-- Bow left loop -->
+      <ellipse cx="70" cy="60" rx="32" ry="18" fill="#FFD2D3" transform="rotate(-25 70 60)"/>
+      <ellipse cx="70" cy="60" rx="24" ry="12" fill="#FFE7E7" transform="rotate(-25 70 60)" opacity="0.5"/>
+      <!-- Bow right loop -->
+      <ellipse cx="130" cy="60" rx="32" ry="18" fill="#FFD2D3" transform="rotate(25 130 60)"/>
+      <ellipse cx="130" cy="60" rx="24" ry="12" fill="#FFE7E7" transform="rotate(25 130 60)" opacity="0.5"/>
+      <!-- Bow center -->
+      <ellipse cx="100" cy="70" rx="14" ry="10" fill="#c97a7a"/>
+      <!-- Stars on box -->
+      <text x="40" y="150" font-size="18" fill="white" opacity="0.4">★</text>
+      <text x="140" y="170" font-size="14" fill="white" opacity="0.3">★</text>
+      <text x="65" y="190" font-size="10" fill="white" opacity="0.3">♥</text>
+      <text x="120" y="140" font-size="10" fill="white" opacity="0.3">♥</text>
+
+      <defs>
+        <linearGradient id="boxGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="white"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+        <linearGradient id="lidGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="white"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- CAKE SCENE (hidden initially) -->
+  <div id="cake-scene">
+    <div class="birthday-card">
+      <!-- Sparkles -->
+      <span class="sparkle" style="top:12px;left:18px;animation-delay:0s">💖</span>
+      <span class="sparkle" style="top:12px;right:18px;animation-delay:0.7s">✨</span>
+      <span class="sparkle" style="bottom:18px;left:24px;animation-delay:1.2s">🌸</span>
+      <span class="sparkle" style="bottom:18px;right:24px;animation-delay:0.4s">💕</span>
+
+      <!-- Cake SVG -->
+      <div class="candle-wrap">
+        <svg width="160" height="170" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+          <!-- Flame -->
+          <g class="flame" transform-origin="80 20">
+            <ellipse cx="80" cy="22" rx="9" ry="14" fill="#ffd54f"/>
+            <ellipse cx="80" cy="26" rx="5" ry="8" fill="#ffb300" opacity="0.8"/>
+            <ellipse cx="80" cy="30" rx="3" ry="5" fill="white" opacity="0.5"/>
+          </g>
+          <!-- Candle -->
+          <rect x="74" y="34" width="12" height="36" rx="4" fill="white"/>
+          <rect x="74" y="34" width="12" height="36" rx="4" fill="#f8bbd0" opacity="0.5"/>
+          <!-- Drip -->
+          <ellipse cx="80" cy="72" rx="14" ry="5" fill="white"/>
+          <path d="M68 72 Q65 85 67 92" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M92 72 Q95 82 94 90" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- Cake top layer -->
+          <rect x="30" y="72" width="100" height="28" rx="6" fill="#FBBABA"/>
+          <!-- Frosting drips -->
+          <path d="M30 78 Q40 92 50 80 Q60 92 70 80 Q80 92 90 80 Q100 92 110 80 Q120 92 130 80" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- Middle layer -->
+          <rect x="20" y="98" width="120" height="35" rx="6" fill="#a1887f"/>
+          <rect x="20" y="98" width="120" height="8" rx="3" fill="#8d6e63"/>
+          <!-- Bottom layer -->
+          <rect x="10" y="131" width="140" height="32" rx="8" fill="#795548"/>
+          <rect x="10" y="131" width="140" height="8" rx="4" fill="#6d4c41"/>
+          <!-- Plate -->
+          <ellipse cx="80" cy="163" rx="76" ry="7" fill="#e0e0e0"/>
+          <!-- Decorations -->
+          <circle cx="45" cy="110" r="4" fill="#FBBABA"/>
+          <circle cx="80" cy="112" r="4" fill="#FFD2D3"/>
+          <circle cx="115" cy="110" r="4" fill="#FBBABA"/>
+          <circle cx="62" cy="110" r="3" fill="#ffffff" opacity="0.6"/>
+          <circle cx="98" cy="112" r="3" fill="#ffffff" opacity="0.6"/>
+        </svg>
+      </div>
+
+      <div class="wish-title">Happy Birthday<br>Mẹ Gấm! 🎂</div>
+      <div class="wish-sub" id="wishText" style="opacity:0;transition:opacity 1s 0.5s">
+        Con chúc Mẹ sinh nhật vui vẻ! 🌸<br>
+        Mong Mẹ luôn mạnh khỏe, hạnh phúc<br>
+        và mãi mãi là người Mẹ tuyệt vời nhất<br>
+        trên đời của con. 💖<br><br>
+        <strong>Con chúc Mẹ tất cả! ❤️</strong>
+      </div>
+    </div>
+    <button class="replay-btn" onclick="replay()">🔄 Mở lại quà</button>
+  </div>
+
+</div>
+
+<script>
+  // ===== BACKGROUND CONFETTI =====
+  const confetti = document.getElementById('confetti');
+  const colors = ['#FBBABA','#FFD2D3','#FFE0E0','#FFE7E7','#FFADAF','#c97a7a','#ffffff'];
+  for (let i = 0; i < 38; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    const size = Math.random() * 14 + 5;
+    d.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${Math.random()*8+6}s;
+      animation-delay:${Math.random()*8}s;
+      border-radius:${Math.random()>0.5?'50%':'4px'};
+    `;
+    confetti.appendChild(d);
+  }
+
+  // ===== OPEN GIFT =====
+  const cakePieces = document.getElementById('cakePieces');
+  const emojis = ['🎂','🍰','🧁','🕯️','🌸','💖','🎀','✨','🍓','💕'];
+
+  function openGift() {
+    document.getElementById('gift-wrapper').style.display = 'none';
+    const cakeScene = document.getElementById('cake-scene');
+    cakeScene.style.display = 'flex';
+
+    // Fade in wish text
+    setTimeout(() => {
+      document.getElementById('wishText').style.opacity = '1';
+    }, 800);
+
+    // Rain cake pieces
+    rainPieces(60);
+  }
+
+  function rainPieces(count) {
+    cakePieces.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const p = document.createElement('div');
+        p.className = 'piece';
+        p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        const dur = Math.random()*2.5+2;
+        p.style.cssText = `
+          left:${Math.random()*100}%;
+          font-size:${Math.random()*1.5+1.5}rem;
+          animation: fallPiece ${dur}s linear forwards;
+          animation-delay:${Math.random()*3}s;
+        `;
+        cakePieces.appendChild(p);
+        setTimeout(() => p.remove(), (dur+3)*1000);
+      }, i*60);
+    }
+  }
+
+  function replay() {
+    document.getElementById('cake-scene').style.display = 'none';
+    document.getElementById('gift-wrapper').style.display = 'flex';
+    document.getElementById('gift-wrapper').style.animation = 'none';
+    setTimeout(() => {
+      document.getElementById('gift-wrapper').style.animation = '';
+    }, 50);
+    cakePieces.innerHTML = '';
+    document.getElementById('wishText').style.opacity = '0';
+  }
+</script>
+</body>
+</html>
